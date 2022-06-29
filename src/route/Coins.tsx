@@ -1,6 +1,6 @@
 import {Title} from '@mantine/core';
 import {Container, Loader} from '@mantine/core';
-import {useNavigate, Link} from "react-router-dom";
+import {Link} from "react-router-dom";
 import {useEffect, useState} from "react";
 
 interface Icoin {
@@ -13,10 +13,10 @@ interface Icoin {
     type: string;
 }
 
-
 function Coins() {
     const [coin, setCoin] = useState<Icoin[]>([])
-    const [loading, setLoading] = useState(false)
+    const [loading, setLoading] = useState(true)
+
     useEffect(() => {
         (async () => {
             const response = await fetch("https://api.coinpaprika.com/v1/coins");
@@ -31,6 +31,7 @@ function Coins() {
             const response = await fetch('https://api.coinpaprika.com/v1/coins/btc-bitcoin');
             const json = await response.json();
             console.log(json)
+            setLoading(false)
         })()
     }, [])
     return (<div><Title order={1} style={{margin: 20}} sx={(theme) => ({
